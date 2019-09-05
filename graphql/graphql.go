@@ -2,6 +2,7 @@ package graphql
 
 import (
 	"encoding/json"
+	"gql-lexer-cache/graphql/lexer"
 	"gql-lexer-cache/resolver"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +14,7 @@ import (
 )
 
 type GraphQLHandler struct {
+	Lexer lexer.Lexer
 }
 
 // GET server graphql playground
