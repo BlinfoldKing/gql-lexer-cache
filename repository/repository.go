@@ -39,7 +39,7 @@ func parseStory(rows *sql.Rows) ([]model.Story, error) {
 	var stories []model.Story
 	for rows.Next() {
 		var (
-			id    int64
+			id    int32
 			title string
 		)
 		err := rows.Scan(&id, &title)

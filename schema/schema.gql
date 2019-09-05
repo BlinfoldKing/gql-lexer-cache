@@ -14,7 +14,7 @@ type Mutation {
 }
 
 type Story {
-  id:  ID!
+  id:  Int!
   title: String!
 }
 

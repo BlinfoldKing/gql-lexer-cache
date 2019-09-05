@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var TotalStory int64 = 0
+var TotalStory int32 = 0
 
 type StoryService struct {
 	repo  *repository.Repository

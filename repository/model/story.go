@@ -1,6 +1,6 @@
 package model
 
 type Story struct {
-	ID    int64
+	ID    int32
 	Title string
 }

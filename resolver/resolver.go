@@ -4,8 +4,6 @@ import (
 	"context"
 	"gql-lexer-cache/repository/model"
 	"gql-lexer-cache/service"
-
-	"github.com/graph-gophers/graphql-go"
 )
 
 var ServiceConnection *Resolver
@@ -70,8 +68,8 @@ type StoryResolver struct {
 	m model.Story
 }
 
-func (s StoryResolver) Id() graphql.ID {
-	return graphql.ID(s.m.ID)
+func (s StoryResolver) Id() int32 {
+	return s.m.ID
 }
 
 func (s StoryResolver) Title() string {
