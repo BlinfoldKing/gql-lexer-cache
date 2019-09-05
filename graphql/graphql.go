@@ -14,7 +14,6 @@ import (
 )
 
 type GraphQLHandler struct {
-	Lexer lexer.Lexer
 }
 
 // GET server graphql playground
@@ -49,6 +48,29 @@ func GqlResponse(ctx echo.Context, Schema *graphql.Schema) error {
 
 	if err := json.NewDecoder(ctx.Request().Body).Decode(&params); err != nil {
 		return err
+	}
+
+	l := lexer.New(params.Query)
+	operations, err := l.Parse()
+	if err == nil {
+		result := echo.Map{}
+		var err error
+		for _, query := range operations[0].Selections {
+			if data, getErr := resolver.ServiceConnection.Service.GetQuery(query.Name); getErr == nil {
+				result[query.Name] = data
+			} else {
+				err = getErr
+				break
+			}
+		}
+
+		if err == nil {
+			return ctx.JSON(200,
+				echo.Map{
+					"data": result,
+				},
+			)
+		}
 	}
 
 	response := Schema.Exec(ctx.Request().Context(), params.Query, params.OperationName, params.Variables)

@@ -49,6 +49,10 @@ func (s StoryService) GetQuery(query string) ([]model.Story, error) {
 	return s.cache.Get(query)
 }
 
+func (s StoryService) SetQuery(query string, value []model.Story) {
+	s.cache.Index(query, value)
+}
+
 func (s StoryService) GetAll() ([]model.Story, error) {
 	return s.repo.GetAll()
 }

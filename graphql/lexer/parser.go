@@ -2,7 +2,6 @@ package lexer
 
 import (
 	"errors"
-	"fmt"
 	"gql-lexer-cache/graphql/lexer/token"
 	"gql-lexer-cache/graphql/lexer/token/operation"
 	"gql-lexer-cache/graphql/lexer/token/selection"
@@ -46,13 +45,6 @@ func (l *Lexer) consumeWhitespaceUntil(stop rune) {
 		l.cursor++
 		c, err = l.read()
 	}
-}
-
-func (l *Lexer) printParseStack() {
-	for _, c := range l.parseStack {
-		fmt.Print(string(c))
-	}
-	fmt.Println()
 }
 
 func (l *Lexer) isEOF() bool {
@@ -201,9 +193,7 @@ func (l *Lexer) parseSelection() (newSelection token.Selection, err error) {
 	}
 
 	c, err = l.read()
-	fmt.Println(">>>", string(c))
 
-	l.printParseStack()
 	l.popFlush()
 	return
 }
@@ -224,16 +214,12 @@ func (l *Lexer) parseSelectionSet() (selectionSet token.SelectionSet, err error)
 		l.consumeWhitespaceUntil(',')
 		if c, err := l.read(); err == nil && c == ',' {
 			l.push(',')
-			l.printParseStack()
 			l.cursor++
-		} else {
-			l.push(c)
 		}
 		l.consumeWhitespace()
 		c, err = l.read()
 	}
 	l.cursor++
-	l.printParseStack()
 	err = l.popFlush()
 	return
 }

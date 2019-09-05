@@ -33,13 +33,14 @@ func (r Resolver) GetAllStories() ([]StoryResolver, error) {
 		resolves = append(resolves, StoryResolver{v})
 	}
 
+	r.Service.SetQuery("GetAllStories", result)
 	return resolves, nil
 }
 
 func (r Resolver) GetOddStories() ([]StoryResolver, error) {
 	result, err := r.Service.GetOddStories()
 	if err != nil {
-		return []StoryResolver{}, nil
+		return []StoryResolver{}, err
 	}
 
 	var resolves []StoryResolver
@@ -47,13 +48,14 @@ func (r Resolver) GetOddStories() ([]StoryResolver, error) {
 		resolves = append(resolves, StoryResolver{v})
 	}
 
+	r.Service.SetQuery("GetOddStories", result)
 	return resolves, nil
 }
 
 func (r Resolver) GetEvenStories() ([]StoryResolver, error) {
 	result, err := r.Service.GetEvenStories()
 	if err != nil {
-		return []StoryResolver{}, nil
+		return []StoryResolver{}, err
 	}
 
 	var resolves []StoryResolver
@@ -61,6 +63,7 @@ func (r Resolver) GetEvenStories() ([]StoryResolver, error) {
 		resolves = append(resolves, StoryResolver{v})
 	}
 
+	r.Service.SetQuery("GetEvenStories", result)
 	return resolves, nil
 }
 

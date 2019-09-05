@@ -14,8 +14,10 @@ func main() {
 
 	resolver.ServiceConnection = resolver.New()
 	e := echo.New()
+
 	gql := e.Group("/graphql")
+	// gql.Use(gqlHandler.ReadQuery)
 	gql.POST("", gqlHandler.Query)
-	gql.GET("", gqlHandler.Playground)
+	// e.GET("/graphql", gqlHandler.Playground)
 	logrus.Fatal(e.Start(":8080"))
 }
