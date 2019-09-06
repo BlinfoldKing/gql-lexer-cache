@@ -41,6 +41,8 @@ func (s StoryService) CreateStory(title string) (model.Story, error) {
 	if err != nil {
 		return model.Story{}, err
 	}
+
+	TotalStory++
 	s.cache.Flush()
 	return story, nil
 }
